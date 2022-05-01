@@ -1,5 +1,6 @@
-discord-interactions-python
+discord-interactions-django
 ---
+A fork of discord-ineractions-python
 ![PyPI - License](https://img.shields.io/pypi/l/discord-interactions)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/discord-interactions)
 
@@ -10,7 +11,7 @@ Types and helper functions for Discord Interactions webhooks.
 Available via [pypi](https://pypi.org/project/discord-interactions/):
 
 ```
-pip install discord-interactions
+pip install discord-interactions-django
 ```
 
 # Usage
