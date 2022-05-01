@@ -26,29 +26,28 @@ else:
     print('Signature is invalid')
 ```
 
-Use `verify_key_decorator` to protect routes in a Flask app:
+Use `verify_key_decorator` to protect a view function in a Django app:
 
 ```py
-import os
+import json
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from discord_interactions_django import verify_key_decorator, InteractionType, InteractionResponseType
 
-from flask import Flask, request, jsonify
+DISCORD_APPLICATION_PUBLIC_KEY = os.getenv('DISCORD_APPLICATION_PUBLIC_KEY')
 
-from discord_interactions import verify_key_decorator, InteractionType, InteractionResponseType
-
-CLIENT_PUBLIC_KEY = os.getenv('CLIENT_PUBLIC_KEY')
-
-app = Flask(__name__)
-
-@app.route('/interactions', methods=['POST'])
-@verify_key_decorator(CLIENT_PUBLIC_KEY)
-def interactions():
-  if request.json['type'] == InteractionType.APPLICATION_COMMAND:
-    return jsonify({
-        'type': InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        'data': {
-            'content': 'Hello world'
-        }
-    })
+@csrf_exempt
+@require_http_methods(['POST'])
+@verify_key_decorator(DISCORD_APPLICATION_PUBLIC_KEY)
+def webhook(request):
+    if json.loads[request.body]['type'] == InteractionType.APPLICATION_COMMAND:
+        return HttpResponse(json.dumps({
+            'type': InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+            'data': {
+                'content': 'Hello world'
+            }
+        }))
 ```
 
 # Exports
@@ -73,4 +72,4 @@ Verify a signed payload POSTed to your webhook endpoint.
 
 ### verify_key_decorator(client_public_key: str)
 
-Flask decorator that will verify request signatures and handle PING/PONG requests.
+Django decorator that will verify request signatures and handle PING/PONG requests.
