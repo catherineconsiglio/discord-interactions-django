@@ -6,7 +6,7 @@ A fork of discord-ineractions-python
 
 Types and helper functions for Discord Interactions webhooks.
 
-# Installation
+# Installation - COMING SOON
 
 Available via [pypi](https://pypi.org/project/discord-interactions/):
 
